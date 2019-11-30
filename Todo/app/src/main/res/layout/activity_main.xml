@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="develop.tomo1139.todo.viewmodel.MainViewModel" />
+
+        <import type="develop.tomo1139.todo.viewmodel.MainViewModel.SelectedCondition" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".view.MainActivity">
+
+        <EditText
+            android:id="@+id/todoTitleEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:hint="@string/what_needs_to_be_done"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:text="@={viewModel.todoTitleEditText}" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/clearContainer"
+            android:layout_below="@+id/todoTitleEditText"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
+        <RelativeLayout
+            android:id="@+id/clearContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/bottomContainer"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@{viewModel.itemLeftText}"
+                tools:text="3 items left" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="?attr/selectableItemBackground"
+                android:onClick="@{() -> viewModel.clearCompleted()}"
+                android:padding="5dp"
+                android:text="@string/clear_completed" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/bottomContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@{viewModel.selectedCondition == SelectedCondition.All ? @drawable/selected_item_background : null}"
+                android:onClick="@{() -> viewModel.setCondition(SelectedCondition.All)}"
+                android:padding="5dp"
+                android:text="@string/all" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="@{viewModel.selectedCondition == SelectedCondition.Active ? @drawable/selected_item_background : null}"
+                android:onClick="@{() -> viewModel.setCondition(SelectedCondition.Active)}"
+                android:padding="5dp"
+                android:text="@string/active" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@{viewModel.selectedCondition == SelectedCondition.Completed ? @drawable/selected_item_background : null}"
+                android:onClick="@{() -> viewModel.setCondition(SelectedCondition.Completed)}"
+                android:padding="5dp"
+                android:text="@string/completed" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>

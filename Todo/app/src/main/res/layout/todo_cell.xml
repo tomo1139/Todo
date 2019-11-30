@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="todoItem"
+            type="develop.tomo1139.todo.model.data.TodoItem" />
+
+        <variable
+            name="callback"
+            type="develop.tomo1139.todo.view.MainControllerCallback" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            isExist="@{!todoItem.completed}"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:onClick="@{() -> callback.onClickCheck(todoItem)}"
+            android:src="@drawable/ic_radio_button_unchecked_black_24dp" />
+
+        <ImageView
+            isExist="@{todoItem.completed}"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:onClick="@{() -> callback.onClickCheck(todoItem)}"
+            android:src="@drawable/ic_radio_button_checked_black_24dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:text="@{todoItem.title}"
+            tools:text="aaa" />
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="?attr/selectableItemBackground"
+            android:onClick="@{() -> callback.onClickDelete(todoItem)}"
+            android:src="@drawable/ic_close_black_24dp" />
+
+    </LinearLayout>
+
+</layout>
