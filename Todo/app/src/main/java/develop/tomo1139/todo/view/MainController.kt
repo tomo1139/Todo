@@ -6,7 +6,7 @@ import develop.tomo1139.todo.model.data.TodoItem
 
 class MainController(private val callback: MainControllerCallback) : TypedEpoxyController<List<TodoItem>>() {
     override fun buildModels(datas: List<TodoItem>) {
-        datas.forEach {
+        datas.reversed().forEach {
             TodoCellBindingModel_()
                 .id(it.id)
                 .callback(callback)
