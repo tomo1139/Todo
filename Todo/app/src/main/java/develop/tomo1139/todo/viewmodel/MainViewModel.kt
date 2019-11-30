@@ -38,7 +38,7 @@ class MainViewModel : ViewModel(), CoroutineScope, MainControllerCallback {
     }
 
     fun addTodoItem() = launch(Dispatchers.Main) {
-        withContext(Dispatchers.IO) { dao.insert(TodoItem(title = todoTitleEditText.value.toString(), completed = false)) }
+        withContext(Dispatchers.IO) { dao.insert(TodoItem(title = todoTitleEditText.value.toString())) }
         loadTodoItems()
         todoTitleEditText.value = ""
     }
